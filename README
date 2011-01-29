@@ -5,3 +5,31 @@ Currently synched up to revision 141 (2010-10-10) by erincatto.
 
 The code integrates the b2Controller extension and a few of the controller classes.
 The buoyancy controller has NOT been integrated due to some new shapes.
+
+=================
+iOS Xcode Project
+=================
+There is an xcode project that is set up to be used as a dependenct project for any other iOS project.
+If you want to have a centralized static library for your Box2D code, this is a good way to do it...
+
+Drag the box2d.xcodeproj file into your own project.
+<< See iOS/reference/ProjectDep1.png >>
+
+Do not copy the items into the project and set it "Relative to Path".
+<< See iOS/reference/ProjectDep2.png >>
+
+Exand your Targets folder and open the configuration for your project's app target.
+* This is NOT the overall project configuration. This is the *Target* app configuration!
+Go to the "General" tab and add the box2d static library as a direct dependency.
+Also add the static library as a linked library.
+<< See iOS/reference/ProjectDep3.png >>
+
+Next go to the "Build" tab and find the "Header Search Paths" option.
+You need to tell Xcode where it can find the headers for Box2D.
+Give the absolute (or relative) path to the root directory of the Box2D source.
+Check "Recursive" so it will search the whole source tree.
+<< See iOS/reference/ProjectDep4.png >>
+
+Enjoy the ability to keep one copy of the Box2D source code in your own local git repository and have multiple projects be built against it!
+
+Note that it is usually recommended that once you have a stable project, you tag that codebase. In this situation, branching your local git repository per project would allow you to push and pull changes between your codebases easily (assuming you are comfortable with git).
