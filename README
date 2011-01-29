@@ -15,10 +15,10 @@ If you want to have a centralized static library for your Box2D code, this is a 
 Drag the box2d.xcodeproj file into your own project.
 << See iOS/reference/ProjectDep1.png >>
 
-Do not copy the items into the project and set it "Relative to Path".
+Do NOT copy the items into the project and set it "Relative to Path".
 << See iOS/reference/ProjectDep2.png >>
 
-Exand your Targets folder and open the configuration for your project's app target.
+Expand your Targets folder and open the configuration for your project's app target.
 * This is NOT the overall project configuration. This is the *Target* app configuration!
 Go to the "General" tab and add the box2d static library as a direct dependency.
 Also add the static library as a linked library.
