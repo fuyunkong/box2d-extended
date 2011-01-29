@@ -19,7 +19,7 @@
 #ifndef B2_RELATIVEFORCECONTROLLER_H
 #define B2_RELATIVEFORCECONTROLLER_H
 
-#include "b2Controller.h"
+#include <Box2D/Dynamics/Controllers/b2Controller.h>
 
 class b2RelativeForceControllerDef;
 

@@ -16,7 +16,7 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
-#include "b2TensorDampingController.h"
+#include <Box2D/Dynamics/Controllers/b2TensorDampingController.h>
 
 b2TensorDampingController::b2TensorDampingController(const b2TensorDampingControllerDef* def) : b2Controller(def)
 {

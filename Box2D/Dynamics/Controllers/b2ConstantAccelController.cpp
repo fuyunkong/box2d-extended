@@ -16,39 +16,31 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef B2_CONSTANTFORCECONTROLLER_H
-#define B2_CONSTANTFORCECONTROLLER_H
+#include <Box2D/Dynamics/Controllers/b2ConstantAccelController.h>
 
-#include "b2Controller.h"
-
-class b2ConstantForceControllerDef;
-
-/// Applies a force every frame
-class b2ConstantForceController : public b2Controller
+b2ConstantAccelController::b2ConstantAccelController(const b2ConstantAccelControllerDef* def) : b2Controller(def)
 {
-public:
-	/// The force to apply
-	b2Vec2 F;
+	A = def->A;
+}
 
-	/// @see b2Controller::Step
-	void Step(const b2TimeStep& step);
-
-protected:
-	void Destroy(b2BlockAllocator* allocator);
-
-private:
-	friend class b2ConstantForceControllerDef;
-	b2ConstantForceController(const b2ConstantForceControllerDef* def);
-};
-
-/// This class is used to build constant force controllers
-class b2ConstantForceControllerDef : public b2ControllerDef
+void b2ConstantAccelController::Step(const b2TimeStep& step)
 {
-public:
-	/// The force to apply
-	b2Vec2 F;
-private:
-	b2ConstantForceController* Create(b2BlockAllocator* allocator) const;
-};
+	for(b2ControllerEdge *i=m_bodyList;i;i=i->nextBody){
+		b2Body* body = i->body;
+		if(!body->IsAwake())
+			continue; 
+		body->SetLinearVelocity(body->GetLinearVelocity()+step.dt*A);
+	}
+}
 
-#endif
+void b2ConstantAccelController::Destroy(b2BlockAllocator* allocator)
+{
+	allocator->Free(this, sizeof(b2ConstantAccelController));
+}
+
+
+b2ConstantAccelController* b2ConstantAccelControllerDef::Create(b2BlockAllocator* allocator) const
+{
+	void* mem = allocator->Allocate(sizeof(b2ConstantAccelController));
+	return new (mem) b2ConstantAccelController(this);
+}

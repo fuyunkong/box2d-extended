@@ -16,31 +16,32 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
-#include "b2ConstantAccelController.h"
+#include <Box2D/Dynamics/Controllers/b2ConstantForceController.h>
 
-b2ConstantAccelController::b2ConstantAccelController(const b2ConstantAccelControllerDef* def) : b2Controller(def)
+b2ConstantForceController::b2ConstantForceController(const b2ConstantForceControllerDef* def) : b2Controller(def)
 {
-	A = def->A;
+	F = def->F;
 }
 
-void b2ConstantAccelController::Step(const b2TimeStep& step)
+void b2ConstantForceController::Step(const b2TimeStep& step)
 {
+	B2_NOT_USED(step);
 	for(b2ControllerEdge *i=m_bodyList;i;i=i->nextBody){
 		b2Body* body = i->body;
 		if(!body->IsAwake())
-			continue; 
-		body->SetLinearVelocity(body->GetLinearVelocity()+step.dt*A);
+			continue;
+		body->ApplyForce(F,body->GetWorldCenter());
 	}
 }
 
-void b2ConstantAccelController::Destroy(b2BlockAllocator* allocator)
+void b2ConstantForceController::Destroy(b2BlockAllocator* allocator)
 {
-	allocator->Free(this, sizeof(b2ConstantAccelController));
+	allocator->Free(this, sizeof(b2ConstantForceController));
 }
 
 
-b2ConstantAccelController* b2ConstantAccelControllerDef::Create(b2BlockAllocator* allocator) const
+b2ConstantForceController* b2ConstantForceControllerDef::Create(b2BlockAllocator* allocator) const
 {
-	void* mem = allocator->Allocate(sizeof(b2ConstantAccelController));
-	return new (mem) b2ConstantAccelController(this);
+	void* mem = allocator->Allocate(sizeof(b2ConstantForceController));
+	return new (mem) b2ConstantForceController(this);
 }

@@ -16,7 +16,7 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#include "b2RelativeForceController.h"
+#include <Box2D/Dynamics/Controllers/b2RelativeForceController.h>
 
 b2RelativeForceController::b2RelativeForceController(const b2RelativeForceControllerDef* def) : b2Controller(def)
 {

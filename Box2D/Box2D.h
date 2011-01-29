@@ -62,6 +62,10 @@ For discussion please visit http://box2d.org/forum
 #include <Box2D/Dynamics/Joints/b2RopeJoint.h>
 #include <Box2D/Dynamics/Joints/b2WeldJoint.h>
 
+#include <Box2D/Dynamics/Controllers/b2ConstantAccelController.h>
+#include <Box2D/Dynamics/Controllers/b2ConstantForceController.h>
+#include <Box2D/Dynamics/Controllers/b2GravityController.h>
 #include <Box2D/Dynamics/Controllers/b2RelativeForceController.h>
+#include <Box2D/Dynamics/Controllers/b2TensorDampingController.h>
 
 #endif

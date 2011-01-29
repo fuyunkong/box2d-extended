@@ -19,9 +19,9 @@
 #ifndef B2_CONTROLLER_H
 #define B2_CONTROLLER_H
 
-#include "../../Dynamics/b2World.h"
-#include "../../Dynamics/b2Body.h"
-#include "../b2TimeStep.h"
+#include <Box2D/Dynamics/b2World.h>
+#include <Box2D/Dynamics/b2Body.h>
+#include <Box2D/Dynamics/b2TimeStep.h>
 
 class b2Body;
 class b2World;

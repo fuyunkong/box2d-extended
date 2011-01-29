@@ -16,20 +16,19 @@
 * 3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef B2_GRAVITYCONTROLLER_H
-#define B2_GRAVITYCONTROLLER_H
+#ifndef B2_CONSTANTFORCECONTROLLER_H
+#define B2_CONSTANTFORCECONTROLLER_H
 
-#include "b2Controller.h"
+#include <Box2D/Dynamics/Controllers/b2Controller.h>
 
-class b2GravityControllerDef;
+class b2ConstantForceControllerDef;
 
-/// Applies simplified gravity between every pair of bodies
-class b2GravityController : public b2Controller{
+/// Applies a force every frame
+class b2ConstantForceController : public b2Controller
+{
 public:
-	/// Specifies the strength of the gravitiation force
-	float32 G;
-	/// If true, gravity is proportional to r^-2, otherwise r^-1
-	bool invSqr;
+	/// The force to apply
+	b2Vec2 F;
 
 	/// @see b2Controller::Step
 	void Step(const b2TimeStep& step);
@@ -38,22 +37,18 @@ protected:
 	void Destroy(b2BlockAllocator* allocator);
 
 private:
-	friend class b2GravityControllerDef;
-	b2GravityController(const b2GravityControllerDef* def);
-
-
+	friend class b2ConstantForceControllerDef;
+	b2ConstantForceController(const b2ConstantForceControllerDef* def);
 };
 
-/// This class is used to build gravity controllers
-class b2GravityControllerDef : public b2ControllerDef
+/// This class is used to build constant force controllers
+class b2ConstantForceControllerDef : public b2ControllerDef
 {
 public:
-	/// Specifies the strength of the gravitiation force
-	float32 G;
-	/// If true, gravity is proportional to r^-2, otherwise r^-1
-	bool invSqr;
+	/// The force to apply
+	b2Vec2 F;
 private:
-	b2GravityController* Create(b2BlockAllocator* allocator) const;
+	b2ConstantForceController* Create(b2BlockAllocator* allocator) const;
 };
 
 #endif
