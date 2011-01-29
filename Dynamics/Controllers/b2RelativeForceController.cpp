@@ -32,16 +32,6 @@ void b2RelativeForceController::Step(const b2TimeStep& step)
 		b2Body* body = i->body;
 		if(!body->IsAwake())
 			continue;
-//		if (influenceForce != 0) {
-//			var headDistance:Number = Point.distance(thing.headPoint, _location);
-//			var tailDistance:Number = Point.distance(thing.tailPoint, _location);
-//			if (headDistance <= influenceRadius && tailDistance > 0 && thing.b2body) {
-//				var p:Point = _location.subtract(thing.headPoint);
-//				p.normalize(1);
-//				thing.b2body.ApplyForce(new b2Vec2(p.x * influenceForce, p.y * influenceForce), new b2Vec2());
-//			}
-//		}
-		//body->SetLinearVelocity(body->GetLinearVelocity()+step.dt*A);
 		float32 dist = b2Distance(body->GetPosition(), position);
 		if (dist > radius) {
 			continue;
