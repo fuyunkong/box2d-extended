@@ -1,0 +1,7 @@
+The core code base is cloned from:
+http://code.google.com/p/box2d/
+
+Currently synched up to revision 141 (2010-10-10) by erincatto.
+
+The code integrates the b2Controller extension and a few of the controller classes.
+The buoyancy controller has NOT been integrated due to some new shapes.
