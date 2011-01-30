@@ -31,9 +31,13 @@ public:
 	/// The position to apply the force from
 	b2Vec2 position;
 	/// The distance at which point the force should no longer be applied
-	float32 radius;
+	float32 innerRadius;
+	/// The distance at which point the force should no longer be applied
+	float32 outerRadius;
 	/// Is the force constant when bodies are within the radius or is there a dropoff
 	bool constant;
+	/// Once the body is within the inner radius (if > 0) can the body escape?
+	bool escape;
 	
 	/// @see b2Controller::Step
 	void Step(const b2TimeStep& step);
@@ -56,9 +60,13 @@ public:
 	/// The position to apply the force from
 	b2Vec2 position;
 	/// The distance at which point the force should no longer be applied
-	float32 radius;
+	float32 innerRadius;
+	/// The distance at which point the force should no longer be applied
+	float32 outerRadius;
 	/// Is the force constant when bodies are within the radius or is there a dropoff
 	bool constant;
+	/// Once the body is within the inner radius (if > 0) can the body escape?
+	bool escape;
 private:
 	b2RelativeForceController* Create(b2BlockAllocator* allocator) const;
 };

@@ -63,6 +63,12 @@ public:
 
 	/// Removes all bodies from the controller list.
 	void Clear();
+	
+	/// Get the active state of the controller.
+	bool IsActive() const;
+	
+	/// Sets the controller active
+	void SetActive(bool active);
 
 	/// Get the next controller in the world's body list.
 	b2Controller* GetNext();
@@ -90,7 +96,8 @@ protected:
 		m_bodyList(NULL),
 		m_bodyCount(0),
 		m_prev(NULL),
-		m_next(NULL)
+		m_next(NULL),
+		m_active(true)
 		
 		{
 			B2_NOT_USED(def);
@@ -100,7 +107,9 @@ protected:
 private:
 	b2Controller* m_prev;
 	b2Controller* m_next;
-
+	
+	bool m_active;
+	
 	static void Destroy(b2Controller* controller, b2BlockAllocator* allocator);
 };
 
@@ -147,6 +156,16 @@ inline const b2ControllerEdge* b2Controller::GetBodyList() const
 inline void b2Controller::Destroy(b2Controller* controller, b2BlockAllocator* allocator)
 {
 	controller->Destroy(allocator);
+}
+
+inline bool b2Controller::IsActive() const
+{
+	return m_active;
+}
+
+inline void b2Controller::SetActive(bool active)
+{
+	m_active = active;
 }
 
 #endif

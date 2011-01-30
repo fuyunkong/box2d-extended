@@ -408,7 +408,8 @@ void b2World::Solve(const b2TimeStep& step)
 	
 	for(b2Controller* controller = m_controllerList;controller;controller=controller->m_next)
 	{
-		controller->Step(step);
+		if (controller->IsActive())
+			controller->Step(step);
 	}
 	
 	// Size the island for the worst case.

@@ -22,8 +22,10 @@ b2RelativeForceController::b2RelativeForceController(const b2RelativeForceContro
 {
 	force = def->force;
 	position = def->position;
-	radius = def->radius;
+	innerRadius = def->innerRadius;
+	outerRadius = def->outerRadius;
 	constant = def->constant;
+	escape = def->escape;
 }
 
 void b2RelativeForceController::Step(const b2TimeStep& step)
@@ -32,15 +34,22 @@ void b2RelativeForceController::Step(const b2TimeStep& step)
 		b2Body* body = i->body;
 		if(!body->IsAwake())
 			continue;
-		float32 dist = b2Distance(body->GetPosition(), position);
-		if (dist > radius) {
+		b2Vec2 delta = body->GetPosition() - position;
+		float32 dist = delta.Length();
+		if (dist > outerRadius) {
 			continue;
 		}
-		b2Vec2 d = body->GetPosition() - position;
-		d *= (1 / dist);
-		d *= force;
-		body->ApplyForce(d, position);
-		
+		if (dist < innerRadius) {
+			if (escape) {
+				continue;
+			}
+			body->SetLinearVelocity(b2Vec2(0.0f, 0.0f));
+			continue;
+		}
+		// normalize the vector
+		delta *= (1 / dist);
+		delta *= force * ((outerRadius - innerRadius) - (dist - innerRadius));
+		body->ApplyForce(delta, body->GetPosition());
 	}
 }
 
